@@ -1,0 +1,11 @@
+.project
+*.log
+
+bower_components/
+node_modules/
+out/
+docs/
+reports/
+cooking/
+
+specs/templates.js

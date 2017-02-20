@@ -1,0 +1,46 @@
+{
+  "name": "grunt-contrib-templify",
+  "version": "0.0.1",
+  "description": "A simple project for quick and dirty conversion of HTML files to javascript for various cases, particularly unit testing.",
+  "main": "index.js",
+  "scripts": {
+    "test": "grunt test"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+ssh://git@github.com/aetherwalker/grunt-contrib-templify.git"
+  },
+  "keywords": [
+    "grunt",
+    "osu",
+    "unit-test",
+    "template",
+    "html2js"
+  ],
+  "author": "Alexander Anderson",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/aetherwalker/grunt-contrib-templify/issues"
+  },
+  "homepage": "https://github.com/aetherwalker/grunt-contrib-templify#readme",
+  "devDependencies": {
+    "angular": "^1.6.2",
+    "angular-mocks": "^1.6.2",
+    "bower": "^1.8.0",
+    "grunt": "^1.0.1",
+    "grunt-contrib-watch": "^1.0.0",
+    "grunt-eslint": "^19.0.0",
+    "grunt-jasmine-nodejs": "^1.5.4",
+    "grunt-karma": "^2.0.0",
+    "jasmine-core": "^2.5.2",
+    "karma": "^1.5.0",
+    "karma-chrome-launcher": "^2.0.0",
+    "karma-firefox-launcher": "^1.0.0",
+    "karma-ie-launcher": "^1.0.0",
+    "karma-jasmine": "^1.1.0",
+    "karma-junit-reporter": "^1.2.0",
+    "karma-phantomjs-launcher": "^1.0.2",
+    "karma-spec-reporter": "0.0.26",
+    "load-grunt-tasks": "^3.5.2"
+  }
+}

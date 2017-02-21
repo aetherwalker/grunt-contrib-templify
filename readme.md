@@ -31,9 +31,34 @@ Task targets, files and options may be specified according to the grunt [Configu
 
 ### Functionality
 
-* Karma-Angular
+Below is a general description of what the task is doing referenced by the various supported "modes"
 
-The task creates a function that handles binding a beforeEach clause that adds the templates to the $templateCache. The eqivilent code as an example:
+* generic
+
+The task creates a function that handles binding a beforeEach clause that adds the templates to a global template variable. The equivalent code for __templifyTemplates as an example:
+```javascript
+var __templates = {};
+beforeEach( function($templateCache) {
+	__templates["..."] = "...";
+	__templates["..."] = "...";
+	// ...
+} );
+```
+
+* angular
+
+The task creates a function that simply binds the templates to the $templateCache. The generated function for *__templifyTemplates* as an example:
+```javascript
+function($templateCache) {
+	$templateCache.put("...", "...");
+	$templateCache.put("...", "...");
+	// ...
+};
+```
+
+* jasmine-angular (Also karma-angular)
+
+The task creates a function that handles binding a beforeEach clause that adds the templates to the $templateCache. The equivalent code for __templifyTemplates as an example:
 ```javascript
 beforeEach( inject( function($templateCache) {
 	$templateCache.put("...", "...");

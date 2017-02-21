@@ -18,6 +18,9 @@ npm install grunt-contrib-templify --save-dev
 
 Then inside your grunt file you'll need to add a line to load this project:
 ```javascript
+templify: {
+    //...
+}
 ```
 
 Then configure the templify task in your grunt configuration (See below).

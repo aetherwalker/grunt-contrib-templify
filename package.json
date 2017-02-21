@@ -1,6 +1,6 @@
 {
   "name": "grunt-contrib-templify",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "A simple project for quick and dirty conversion of HTML files to javascript for various cases, particularly unit testing.",
   "main": "index.js",
   "scripts": {
@@ -17,7 +17,10 @@
     "template",
     "html2js"
   ],
-  "author": "Alexander Anderson",
+  "author": {
+  	"name": "Alexander Anderson",
+  	"email": "aetherwalker@refugesystems.net"
+  },
   "license": "MIT",
   "bugs": {
     "url": "https://github.com/aetherwalker/grunt-contrib-templify/issues"

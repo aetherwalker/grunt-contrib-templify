@@ -26,6 +26,19 @@ Then configure the templify task in your grunt configuration (See below).
 
 Task targets, files and options may be specified according to the grunt [Configuring tasks](http://gruntjs.com/configuring-tasks) guide.
 
+### Functionality
+
+* Karma-Angular
+
+The task creates a function that handles binding a beforeEach clause that adds the templates to the $templateCache. The eqivilent code as an example:
+```javascript
+beforeEach( inject( function($templateCache) {
+	$templateCache.put("...", "...");
+	$templateCache.put("...", "...");
+	// ...
+} ) );
+```
+
 ### Options
 
 #### templates
@@ -102,9 +115,8 @@ templify: {
 Once the grunt process is described, the templify:testing task will need to preceed the karma task for testing. The idea being that the generated javascript file will then be provided to karma, where the declarations for the templates to pass to angular are ready in a function named **__templifyTemplates**. Then inside the jasmine tests:
 ```javascript
 	//...
-	beforeEach(inject(function($templateCache) {
-		__templifyTemplates($templateCache);
-	}));
+	/* Creates a beforeEach clause in Jasmine to bind the templates to the Template cache */
+	__templifyTemplates();
 	//...
 ```
 

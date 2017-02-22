@@ -19,7 +19,7 @@ npm install grunt-contrib-templify --save-dev
 Then inside your grunt file you'll need to add a line to load this project:
 ```javascript
 templify: {
-    //...
+    // ...
 }
 ```
 
@@ -134,18 +134,67 @@ templify: {
 		}],
 		suffixes: [".html"],
 		mode: "karma-angular",
-		output: "spec/templates.js"
+		output: "specs/templates.js"
 	}
 }
 ```
 (Note: that "testing" is an arbitrary label)
 
-Once the grunt process is described, the templify:testing task will need to preceed the karma task for testing. The idea being that the generated javascript file will then be provided to karma, where the declarations for the templates to pass to angular are ready in a function named **__templifyTemplates**. Then inside the jasmine tests:
+Once the grunt process is described, the templify:testing task will need to preceed the karma task for testing. The idea being that the generated javascript file will then be provided to karma, where the declarations for the templates to pass to angular are ready in a function named **__templifyTemplates**. Then inside the jasmine tests.
+
+In Karma's Grunt declaration:
 ```javascript
-	//...
+karma: {
+	options: {
+		// ...
+		files: [
+			// Dependencies...
+			"specs/templates.js",
+			// Tests...
+			]
+	},
+	// ...
+}
+```
+
+In your Jasmine tests:
+```javascript
+	// ...
 	/* Creates a beforeEach clause in Jasmine to bind the templates to the Template cache */
 	__templifyTemplates();
-	//...
+	// ...
 ```
 
 Now when using angular later, the templates can be pulled from the $templateCache for use in unit and functional tests.
+
+For Example:
+```javascript
+describe("Templify Karma-Angular template processing", function() {
+	var $compile, $scope;
+	var template, html, element;
+
+	__templifyTemplates();
+
+	describe("Templating", function() {
+		beforeEach(inject(function(_$compile_, _$rootScope_) {
+			$compile = _$compile_;
+			$scope = _$rootScope_.$new();
+		}));
+
+		it("passes standard checks", inject(function($templateCache) {
+			$scope.title = "Titling";
+			$scope.paragraph = "This is some text";
+
+			template = $compile($templateCache.get("angular-template1.html"))($scope);
+			$scope.$digest();
+			html = template.html();
+
+			expect(html).toContain($scope.title);
+			expect(html).toContain($scope.paragraph);
+			expect(html).not.toContain("title");
+			expect(html).not.toContain("paragraph");
+		}));
+	});
+});
+
+```

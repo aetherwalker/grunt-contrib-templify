@@ -4,9 +4,6 @@ describe("Templify Karma-Angular template processing", function() {
 	var $compile, $scope;
 	var template, html, element;
 
-//	beforeEach(inject(function($templateCache) {
-//		__templifyTemplates($templateCache);
-//	}));
 	__templifyTemplates();
 
 	describe("Templating", function() {

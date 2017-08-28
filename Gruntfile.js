@@ -58,45 +58,8 @@ module.exports = function(grunt) {
 					}
 				},
 				unit: {
-					specs: "./spec/**",
+					specs: ["./specs/**"],
 					helpers: []
-				}
-			},
-			karma: {
-				options: {
-					reporters: ["spec", "junit"],
-					frameworks: ["jasmine"],
-					singleRun: true,
-					browsers: ["PhantomJS"],
-					junitReporter: {
-						outputDir: "./reports/jasmine", // results will be saved as $outputDir/$browserName.xml
-						outputFile: undefined, // if included, results will be saved as $outputDir/$browserName/$outputFile
-						suite: "", // suite will become the package name attribute in xml testsuite element
-						useBrowserName: true, // add browser name to report and classes names
-						nameFormatter: undefined, // function (browser, result) to customize the name attribute in xml testcase element
-						classNameFormatter: undefined, // function (browser, result) to customize the classname attribute in xml testcase element
-						properties: {} // key value pair of properties to add to the <properties> section of the report
-					},
-					specReporter: {
-						maxLogLines: 1,         // limit number of lines logged per test 
-						suppressErrorSummary: true,  // do not print error summary 
-						suppressFailed: false,  // do not print information about failed tests 
-						suppressPassed: false,  // do not print information about passed tests 
-						suppressSkipped: true,  // do not print information about skipped tests 
-						showSpecTiming: false // print the time elapsed for each spec 
-					},
-					files: [
-						"node_modules/angular/angular.js",
-						"node_modules/angular-mocks/angular-mocks.js",
-						"specs/templates.js",
-						"specs/scenerios.js"
-						]
-				},
-				unit: {
-					singleRun: true,
-				},
-				continuous: {
-					singleRun: false
 				}
 			}
 	};
@@ -123,7 +86,7 @@ module.exports = function(grunt) {
 	grunt.initConfig(gconfig);
 
 	/* Set tasks */
-	grunt.registerTask("default", ["eslint:files"]);
+	grunt.registerTask("default", ["eslint:contrib"]);
 	grunt.registerTask("test", ["eslint:contrib", "jasmine_nodejs"]);
 //	grunt.registerTask("karma", ["eslint:contrib", "karma:continuous"]);
 	grunt.registerTask("dev", ["watch"]);

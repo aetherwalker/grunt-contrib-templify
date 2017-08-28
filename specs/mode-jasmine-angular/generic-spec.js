@@ -7,7 +7,7 @@ describe("Karma Angular template creation mode", function() {
 		
 	});
 	
-	it("Creates the specified output file", function() {
+	xit("Creates the specified output file", function() {
 		
 	});
 });

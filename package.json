@@ -18,8 +18,8 @@
     "html2js"
   ],
   "author": {
-  	"name": "Alexander Anderson",
-  	"email": "aetherwalker@refugesystems.net"
+    "name": "Alexander Anderson",
+    "email": "aetherwalker@refugesystems.net"
   },
   "license": "MIT",
   "bugs": {
@@ -45,5 +45,8 @@
     "karma-phantomjs-launcher": "^1.0.2",
     "karma-spec-reporter": "0.0.26",
     "load-grunt-tasks": "^3.5.2"
+  },
+  "dependencies": {
+    "glob": "^7.1.2"
   }
 }

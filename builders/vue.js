@@ -15,6 +15,7 @@ module.exports = {
 		return "\t\t\tdefault: return null;\n" +
 				"\t\t}\n" +
 				"\t};\n" +
-				"};\n";
+				"};\n" +
+				"Vue.use(Templify);";
 	}
 };

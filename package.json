@@ -1,6 +1,6 @@
 {
   "name": "grunt-contrib-templify",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "A simple project for quick and dirty conversion of HTML files to javascript for various cases, particularly unit testing.",
   "main": "index.js",
   "scripts": {

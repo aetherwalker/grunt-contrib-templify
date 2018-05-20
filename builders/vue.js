@@ -2,7 +2,9 @@ module.exports = {
 	"mode": "vue",
 	"prefix": function() {
 		return "Templify = {}; Templify.install = function(Vue, options) {\n" +
-				"\tVue.templified = function(name) {\n" +
+				"\toptions = options || {};" +
+				"\toptions.name = options.name || \"templified\";\n" +
+				"\tVue[options.name] = function(name) {\n" +
 				"\t\tswitch(name) {\n";
 	},
 	"generator": function(template) {

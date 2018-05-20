@@ -7,16 +7,19 @@ This was started specifically to fill a need for unit tests to get HTML template
 
 ## Getting Started
 This project is designed for use with Grunt. If you don't already have it installed:  
+
 ```shell
 npm install grunt --save-dev
 ```
 
 To get this project added:  
+
 ```shell
 npm install grunt-contrib-templify --save-dev
 ```
 
 Then inside your grunt file you'll need to add a line to load this project:
+
 ```javascript
 templify: {
     // ...
@@ -29,13 +32,14 @@ Then configure the templify task in your grunt configuration (See below).
 
 Task targets, files and options may be specified according to the grunt [Configuring tasks](http://gruntjs.com/configuring-tasks) guide.
 
-### Functionality
+### Modes
 
 Below is a general description of what the task is doing referenced by the various supported "modes"
 
-* generic
+#### generic
 
 The task creates a function that handles binding a beforeEach clause that adds the templates to a global template variable. The equivalent code for __templifyTemplates as an example:
+
 ```javascript
 var __templates = {};
 beforeEach( function($templateCache) {
@@ -45,9 +49,10 @@ beforeEach( function($templateCache) {
 } );
 ```
 
-* angular
+#### angular
 
 The task creates a function that simply binds the templates to the $templateCache. The generated function for *__templifyTemplates* as an example:
+
 ```javascript
 function($templateCache) {
 	$templateCache.put("...", "...");
@@ -56,9 +61,10 @@ function($templateCache) {
 };
 ```
 
-* vue
+#### vue
 
 The task creates a Vue Plugin to provide the HTML files as templates:
+
 ```javascript
 var Templify = {};
 Templify.install = function(Vue, options) {
@@ -70,13 +76,16 @@ Templify.install = function(Vue, options) {
 		}
 	};
 };
+
 ```
 To use the Plugin, your code will have to call
+
 ```javascript
 Vue.use(Templify);
 ```
 
 And then your components should be able to access their templates:
+
 ```javascript
 Vue.component("example", {
 	// ...
@@ -84,9 +93,18 @@ Vue.component("example", {
 });
 ```
 
-* jasmine-angular (Also karma-angular)
+The Vue plugin accepts several option parameters as well
+
+##### Vue: options.name
+Type: `String`  
+Default: 'templified'
+
+Sets the name of the method off of `Vue` where the templates are amde available. 
+
+#### jasmine-angular (Also karma-angular)
 
 The task creates a function that handles binding a beforeEach clause that adds the templates to the $templateCache. The equivalent code for __templifyTemplates as an example:
+
 ```javascript
 beforeEach( inject( function($templateCache) {
 	$templateCache.put("...", "...");
@@ -94,6 +112,7 @@ beforeEach( inject( function($templateCache) {
 	// ...
 } ) );
 ```
+
 
 ### Options
 
@@ -151,6 +170,7 @@ This is currently being written to quickly fill a specific issue of getting HTML
 
 ### Karma & Jasmine
 The current process is designed to be simple but not as smooth as desired. Initially the Grunt configuration needs to be put in place:
+
 ```javascript
 templify: {
 	testing: {
@@ -166,11 +186,13 @@ templify: {
 	}
 }
 ```
+
 (Note: that "testing" is an arbitrary label)
 
 Once the grunt process is described, the templify:testing task will need to preceed the karma task for testing. The idea being that the generated javascript file will then be provided to karma, where the declarations for the templates to pass to angular are ready in a function named **__templifyTemplates**. Then inside the jasmine tests.
 
 In Karma's Grunt declaration:
+
 ```javascript
 karma: {
 	options: {
@@ -186,6 +208,7 @@ karma: {
 ```
 
 In your Jasmine tests:
+
 ```javascript
 	// ...
 	/* Creates a beforeEach clause in Jasmine to bind the templates to the Template cache */
@@ -196,6 +219,7 @@ In your Jasmine tests:
 Now when using angular later, the templates can be pulled from the $templateCache for use in unit and functional tests.
 
 For Example:
+
 ```javascript
 describe("Templify Karma-Angular template processing", function() {
 	var $compile, $scope;

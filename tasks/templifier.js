@@ -84,7 +84,7 @@ module.exports = function(grunt) {
 				});
 				
 			} catch(exception) {
-				grunt.log.writeln("Failed to read directory: " + dir + "\n" + JSON.stringify(exception, null, 4));
+				grunt.log.writeln("Failed to read directory:\n" + JSON.stringify(dir) + "\n> Exception:\n" + JSON.stringify(exception, null, 4));
 			}
 		});
 	    

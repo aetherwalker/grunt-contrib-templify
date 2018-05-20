@@ -78,7 +78,7 @@ Templify.install = function(Vue, options) {
 };
 
 ```
-To use the Plugin, your code will have to call
+Currently the template file generated is created with the call to `Vue.use` at the end:
 
 ```javascript
 Vue.use(Templify);

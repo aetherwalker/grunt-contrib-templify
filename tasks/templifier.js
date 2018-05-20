@@ -29,7 +29,7 @@ module.exports = function(grunt) {
 
 	grunt.registerMultiTask("templify", "Convert HTML files to Javascript strings for template usage.", function() {
 		var options = Object.assign({}, defaults, this.options(), this.data);
-		options.appRoot = options.appRoot || currentDir;
+		options.appRoot = options.appRoot || process.cwd();
 
 		/* Tracks the templates name to the object describing its contents */
 		var templates = {};

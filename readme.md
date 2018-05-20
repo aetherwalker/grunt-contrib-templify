@@ -117,6 +117,8 @@ beforeEach( inject( function($templateCache) {
 ### Options
 
 #### appRoot
+Type: `String`  
+Optional
 
 Specifies the root directory for scanning files and writing output files. Useful when using abstract layers such as mocha or PM2.
 

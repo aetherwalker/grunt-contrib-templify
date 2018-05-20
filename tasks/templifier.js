@@ -3,8 +3,7 @@
  * 
  * @license MIT
  * @author Alexander Anderson
- * @modified February 20th, 2017
- * Copyright Refuge Systems LLC 2017
+ * @company Refuge Systems LLC 2018
  */
 "use strict";
 
@@ -24,11 +23,13 @@ module.exports = function(grunt) {
 	
 	/* Setup the defaults to merge with incoming task configuration */
 	var defaults = {
-		"mode": "karma-angular"	
+		"mode": "karma-angular",
+		"output": "templified.js"
 	};
 
 	grunt.registerMultiTask("templify", "Convert HTML files to Javascript strings for template usage.", function() {
-		var options = Object.assign({}, defaults, this.data);
+		var options = Object.assign({}, defaults, this.options(), this.data);
+		options.appRoot = options.appRoot || currentDir;
 
 		/* Tracks the templates name to the object describing its contents */
 		var templates = {};
@@ -49,7 +50,7 @@ module.exports = function(grunt) {
 		if(!options.output) throw new Error("Configuration 'output' missing for Templify");
 		
 		/* ADJUST OPTIONS */
-		if(options.output[0] !== "/") options.output = currentDir + options.output;
+		if(options.output[0] !== "/") options.output = options.appRoot + "/" + options.output;
 		
 		/* INDEX TEMPLATES */
 		options.templates.forEach(function(dir) {
@@ -72,7 +73,7 @@ module.exports = function(grunt) {
 				dir.files = glob.sync(dir.path);
 				
 				dir.files.forEach(function(file) {
-					path = dir.path + file;
+					path = file;
 					content = fs.readFileSync(path).toString();
 					name = dir.rewrite(path, dir);
 					templates[name] = {

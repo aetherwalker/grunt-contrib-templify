@@ -116,6 +116,10 @@ beforeEach( inject( function($templateCache) {
 
 ### Options
 
+#### appRoot
+
+Specifies the root directory for scanning files and writing output files. Useful when using abstract layers such as mocha or PM2.
+
 #### templates
 Type: `Array`
 

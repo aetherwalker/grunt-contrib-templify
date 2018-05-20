@@ -9,9 +9,11 @@
 
 module.exports = function(grunt) {
 	
-	var fs = require("fs");
+	var fs = grunt._$fs || require("fs");
 	
-	var glob = require("glob");
+	var glob = grunt._$glob || require("glob");
+	
+	var fetch = grunt._$require || require;
 	
 	/* Track the current working directory */
 	var currentDir = __dirname.replace(/\\/g, "/") + "/../";
@@ -28,7 +30,9 @@ module.exports = function(grunt) {
 	};
 
 	grunt.registerMultiTask("templify", "Convert HTML files to Javascript strings for template usage.", function() {
-		var options = Object.assign({}, defaults, this.options(), this.data);
+		var task = grunt._$jasmineTest || this;
+		
+		var options = Object.assign({}, defaults, task.options(), task.data);
 		options.appRoot = options.appRoot || process.cwd();
 
 		/* Tracks the templates name to the object describing its contents */
@@ -117,7 +121,7 @@ module.exports = function(grunt) {
 
 	var builders = currentDir + "builders/";
 	fs.readdirSync(builders).forEach(function(builder) {
-		builder = require(builders + builder);
+		builder = fetch(builders + builder);
 		prefixers[builder.mode] = builder.prefix || noOp;
 		generators[builder.mode] = builder.generator || noOp;
 		suffixers[builder.mode] = builder.suffix|| noOp;

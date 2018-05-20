@@ -56,6 +56,34 @@ function($templateCache) {
 };
 ```
 
+* vue
+
+The task creates a Vue Plugin to provide the HTML files as templates:
+```javascript
+var Templify = {};
+Templify.install = function(Vue, options) {
+	Vue.templified = function(name) {
+		switch(name) {
+			case "[Filename]": return [Template];
+			//...
+			default: return undefined;
+		}
+	};
+};
+```
+To use the Plugin, your code will have to call
+```javascript
+Vue.use(Templify);
+```
+
+And then your components should be able to access their templates:
+```javascript
+Vue.component("example", {
+	// ...
+	"template": Vue.templified("[Filename]")
+});
+```
+
 * jasmine-angular (Also karma-angular)
 
 The task creates a function that handles binding a beforeEach clause that adds the templates to the $templateCache. The equivalent code for __templifyTemplates as an example:

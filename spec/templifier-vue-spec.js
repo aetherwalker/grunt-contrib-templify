@@ -13,6 +13,7 @@ describe("Vue template creation mode", function() {
 		});
 		
 		vue = {};
+		options = {};
 		
 		templates = [];
 		templates.push({
@@ -35,12 +36,27 @@ describe("Vue template creation mode", function() {
 		expect(templifier.suffix).toBeDefined();
 	});
 	
-	it("Has valid output", function() {
-		var concated = templifier.prefix();
+	it("Has valid output without autoAffix", function() {
+		var concated = templifier.prefix(options);
 		templates.forEach(function(template) {
-			concated += templifier.generator(template);
+			concated += templifier.generator(template, options);
 		});
-		concated += templifier.suffix();
+		concated += templifier.suffix(options);
+		
+		eval(concated);
+		
+		expect(vue.templified).toBeUndefined();
+		expect(Vue.use).not.toHaveBeenCalled();
+	});
+	
+	it("Has valid output with autoAffix", function() {
+		options.autoAffix = true;
+		
+		var concated = templifier.prefix(options);
+		templates.forEach(function(template) {
+			concated += templifier.generator(template, options);
+		});
+		concated += templifier.suffix(options);
 		
 		eval(concated);
 		

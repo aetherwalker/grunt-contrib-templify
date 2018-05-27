@@ -11,11 +11,11 @@ module.exports = {
 	"generator": function(template) {
 		return "\t\t\tcase \"" + template.name + "\": return " + JSON.stringify(template.html) + ";\n";
 	},
-	"suffix": function() {
+	"suffix": function(options) {
 		return "\t\t\tdefault: return null;\n" +
 		"\t\t}\n" +
 		"\t};\n" +
 		"};\n" +
-		"Vue.use(Templify);";
+		(options.autoAffix?"Vue.use(Templify);":"");
 	}
 };

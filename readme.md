@@ -51,7 +51,7 @@ beforeEach( function($templateCache) {
 
 #### angular
 
-The task creates a function that simply binds the templates to the $templateCache. The generated function for *__templifyTemplates* as an example:
+Currently this refers to "AngularJS". The task creates a function that simply binds the templates to the $templateCache. The generated function for *__templifyTemplates* as an example:
 
 ```javascript
 function($templateCache) {
@@ -101,9 +101,15 @@ Default: 'templified'
 
 Sets the name of the method off of `Vue` where the templates are amde available. 
 
+#### angular+
+
+Not yet implemented.
+
+To avoid mixing the afore-mentions `angular` mode that is for AngularV1 or AngularJS, the mode for Angular V2+ templating will use the mode `angular+`. 
+
 #### jasmine-angular (Also karma-angular)
 
-The task creates a function that handles binding a beforeEach clause that adds the templates to the $templateCache. The equivalent code for __templifyTemplates as an example:
+Currently this refers to "AngularJS". The task creates a function that handles binding a beforeEach clause that adds the templates to the $templateCache. The equivalent code for __templifyTemplates as an example:
 
 ```javascript
 beforeEach( inject( function($templateCache) {
@@ -140,11 +146,6 @@ This function is passed the current path to the template and is expected to retu
 
 The second argument is the current directory object **templates[]** for further manipulation if desired.
 
-#### templates[].module
-Type: `String`
-
-*Currently unused.* Future use to allow separation of templates to be declared into their respective angular modules.
-
 #### templates[].trim
 Type: `String`
 
@@ -170,6 +171,16 @@ Indicates how the output file should be written, specifically it indicates what 
 Type: `String`
 
 Indicates where to output the javascript.
+
+#### autoAffix
+Type: `Boolean`
+
+When true, the created template file will attempt to automatically add the code necessary to add itself to the appropriate library. Such as `Vue.install`.
+
+#### module
+Type: `String`
+
+When `autoAffix` is true, this options is used for angularjs template files to automatically index the correct module for the $templateCache.
 
 ## Usage Examples
 This is currently being written to quickly fill a specific issue of getting HTML templates into Jasmine tests for Angular while using Karma without too much craziness.

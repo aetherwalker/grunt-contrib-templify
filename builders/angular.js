@@ -6,7 +6,7 @@ module.exports = {
 	"generator": function(template) {
 		return "\t$templateCache.put(\"" + template.name + "\", " + JSON.stringify(template.html) + ");\n";
 	},
-	"suffix": function() {
+	"suffix": function(options) {
 		return "};\n";
 	}
 };

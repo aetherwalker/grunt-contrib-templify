@@ -71,21 +71,21 @@ module.exports = function(grunt) {
 				if(!dir.rewrite) {
 					dir.rewrite = noRewrite;
 				}
-				/* Deprecated flat directory search
-				dir.files = fs.readdirSync(dir.path);
-				*/
+				if(dir.path[0] !== "/") dir.path = options.appRoot + "/" + dir.path;
 				dir.files = glob.sync(dir.path);
 				
 				dir.files.forEach(function(file) {
 					path = file;
 					content = fs.readFileSync(path).toString();
 					name = dir.rewrite(path, dir);
-					templates[name] = {
-							"name": name,
-							"path": path,
-							"html": content,
-							"module": dir.module
-					};
+					if(name) {
+						templates[name] = {
+								"name": name,
+								"path": path,
+								"html": content,
+								"module": dir.module
+						};
+					}
 				});
 				
 			} catch(exception) {

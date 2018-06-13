@@ -20,11 +20,26 @@ npm install grunt-contrib-templify --save-dev
 
 Then inside your grunt file you'll need to add a line to load this project:
 
+Example Gruntfile Entry:
 ```javascript
-templify: {
-    // ...
-}
+	// ...
+	"templify": {
+		"example": {
+			"templates": [{
+				"path": "templates/*.html",
+				"rewrite": function(path) {
+					return path.substring(path.lastIndexOf("/") + 1);
+				}
+			}],
+			"mode": "angular",
+			"output": "templates.js"
+		}
+	},
+	// ...
+
 ```
+
+Where the above example would scan 
 
 Then configure the templify task in your grunt configuration (See below).
 
@@ -63,8 +78,9 @@ function($templateCache) {
 
 #### vue
 
-The task creates a Vue Plugin to provide the HTML files as templates:
+The task creates a Vue Plugin to provide the HTML files as templates.
 
+General output file:
 ```javascript
 var Templify = {};
 Templify.install = function(Vue, options) {
@@ -136,31 +152,17 @@ This is an array of objects that describe how to process a directory. Each direc
 #### templates[].path
 Type: `String`
 
-The path to the folder where the templates are currently located
+Glob like description to find files. See https://www.npmjs.com/package/glob for full details.
 
 #### templates[].rewrite
 Type: `Function(String, Object)`
 Optional
 
-This function is passed the current path to the template and is expected to return the name to use for the template, which by default is merely the current path. This options allos the name to programmatically created based on the path to the template.
+This function is passed the current path to the template and is expected to return the name to use for the template, which by default is merely the current path. This options allows the name to programmatically created based on the path to the template.
 
 The second argument is the current directory object **templates[]** for further manipulation if desired.
 
-#### templates[].trim
-Type: `String`
-
-*Currently unused.* Future use to specify text to trim from the begining or end of the path. This is more accurately accomplished with **templates[].rewrite**.
-
-#### templates[].prefix
-Type: `String`
-
-*Currently unused.* Future use to apply a simple prefix to the template name. This is more accurately accomplished with **templates[].rewrite**.
-
-#### templates[].suffix
-Type: `String`
-
-*Currently unused.* Future use to apply a simple suffix to the template name. This is more accurately accomplished with **templates[].rewrite**.
-
+If the file should be skipped, then null should be returned instead of a String.
 
 #### mode
 Type: `String`
@@ -170,7 +172,7 @@ Indicates how the output file should be written, specifically it indicates what 
 #### output
 Type: `String`
 
-Indicates where to output the javascript.
+Indicates where to output the javascript file with the stringified templates.
 
 #### autoAffix
 Type: `Boolean`
@@ -192,12 +194,11 @@ The current process is designed to be simple but not as smooth as desired. Initi
 templify: {
 	testing: {
 		templates: [{
-			path: "templates/",
+			path: "templates/*.html",
 			rewrite: function(path) {
 				return path.substring(path.lastIndexOf("/") + 1);
 			}
 		}],
-		suffixes: [".html"],
 		mode: "karma-angular",
 		output: "specs/templates.js"
 	}

@@ -7,6 +7,7 @@ module.exports = {
 		return "\t$templateCache.put(\"" + template.name + "\", " + JSON.stringify(template.html) + ");\n";
 	},
 	"suffix": function(options) {
-		return "};\n";
+		return "};\n" +
+		(options.autoAffix?"angular.module(" + options.module + ");":"");
 	}
 };

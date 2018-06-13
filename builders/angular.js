@@ -8,6 +8,6 @@ module.exports = {
 	},
 	"suffix": function(options) {
 		return "};\n" +
-		(options.autoAffix?"angular.module(" + options.module + ");":"");
+		(options.autoAffix?"angular.module(" + options.module + ").run(__templifyTemplates);":"");
 	}
 };

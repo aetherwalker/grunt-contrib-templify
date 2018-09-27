@@ -57,7 +57,7 @@ The task creates a function that handles binding a beforeEach clause that adds t
 
 ```javascript
 var __templates = {};
-beforeEach( function($templateCache) {
+beforeEach( function() {
 	__templates["..."] = "...";
 	__templates["..."] = "...";
 	// ...

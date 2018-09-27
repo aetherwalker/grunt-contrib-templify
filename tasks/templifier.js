@@ -28,9 +28,23 @@ module.exports = function(grunt) {
 		"mode": "karma-angular",
 		"output": "templified.js"
 	};
+	
+	/* Functions that handle the translation of a template object to its corresponding contents */
+	var prefixers = {};
+	var generators = {};
+	var suffixers = {};
+
+	var builders = currentDir + "builders/";
+	fs.readdirSync(builders).forEach(function(builder) {
+		builder = fetch(builders + builder);
+		prefixers[builder.mode] = builder.prefix || noOp;
+		generators[builder.mode] = builder.generator || noOp;
+		suffixers[builder.mode] = builder.suffix|| noOp;
+	});
 
 	grunt.registerMultiTask("templify", "Convert HTML files to Javascript strings for template usage.", function() {
 		var task = grunt._$jasmineTest || this;
+		var complete = this.async();
 		
 		var options = Object.assign({}, defaults, task.options(), task.data);
 		options.appRoot = options.appRoot || process.cwd();
@@ -68,9 +82,8 @@ module.exports = function(grunt) {
 						"trim": null
 					};
 				}
-				if(!dir.rewrite) {
-					dir.rewrite = noRewrite;
-				}
+				
+				if(!dir.rewrite) dir.rewrite = noRewrite;
 				if(dir.path[0] !== "/") dir.path = options.appRoot + "/" + dir.path;
 				dir.files = glob.sync(dir.path);
 				
@@ -112,18 +125,5 @@ module.exports = function(grunt) {
 	    
 	    /* WRITE OUTPUT */
 	    fs.writeFileSync(options.output, content.toString(), "utf-8");
-	});
-	
-	/* Functions that handle the translation of a template object to its corresponding contents */
-	var prefixers = {};
-	var generators = {};
-	var suffixers = {};
-
-	var builders = currentDir + "builders/";
-	fs.readdirSync(builders).forEach(function(builder) {
-		builder = fetch(builders + builder);
-		prefixers[builder.mode] = builder.prefix || noOp;
-		generators[builder.mode] = builder.generator || noOp;
-		suffixers[builder.mode] = builder.suffix|| noOp;
 	});
 };

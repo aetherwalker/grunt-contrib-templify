@@ -44,7 +44,6 @@ module.exports = function(grunt) {
 
 	grunt.registerMultiTask("templify", "Convert HTML files to Javascript strings for template usage.", function() {
 		var task = grunt._$jasmineTest || this;
-		var complete = this.async();
 		
 		var options = Object.assign({}, defaults, task.options(), task.data);
 		options.appRoot = options.appRoot || process.cwd();
